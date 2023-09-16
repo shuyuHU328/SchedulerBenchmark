@@ -3,6 +3,7 @@ package org.example;
 import org.openjdk.jmh.annotations.*;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -13,8 +14,11 @@ import java.util.concurrent.atomic.AtomicLong;
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.SECONDS)
 public class SchedulerBenchmark {
+    @Param({"1000", "5000", "10000"})
     private static int threadCount;
+    @Param({"15000", "25000", "36000"})
     private static int requestCount;
+    @Param({"1", "2"})
     private static int testOption;
     private static final int useFixedThreadPool = 0;
     private static final int useForkJoinPool = 1;
@@ -85,7 +89,6 @@ public class SchedulerBenchmark {
     public void testScheduler() throws Exception {
         CountDownLatch startSignal = new CountDownLatch(1);
         CountDownLatch doneSignal = new CountDownLatch(requestCount);
-        AtomicLong count = new AtomicLong();
         AtomicLong statsTimes = new AtomicLong();
         Runnable r = new Runnable() {
             @Override
@@ -94,16 +97,15 @@ public class SchedulerBenchmark {
                     startSignal.await();
                     String sql = "select * from hello";
                     String result = submitQuery(sql);
-                    long val = count.addAndGet(1);
                     doneSignal.countDown();
                 } catch (Exception e) {
 
                 }
             }
         };
-
+        ArrayList<Thread> temp = new ArrayList<>();
         for (int i = 0; i < requestCount; i++) {
-            builder.start(r);
+            Thread now = builder.start(r);
         }
 
         long before = System.currentTimeMillis();
@@ -112,7 +114,6 @@ public class SchedulerBenchmark {
         doneSignal.await();
 
         db_executor.shutdown();
-
     }
 
 }

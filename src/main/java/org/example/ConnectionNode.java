@@ -23,7 +23,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 public class ConnectionNode {
-    private static String url = "jdbc:mysql://localhost:3306/test?useSSL=false";
+    private static String url = "jdbc:mysql://localhost:3306/zm?useSSL=false";
     private static String u = "root";
     private static String p = "root";
 
