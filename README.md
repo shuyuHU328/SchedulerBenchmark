@@ -12,4 +12,4 @@ ForkJoinPool）的性能表现。
 
 ## 火焰图
 使用AsyncProfiler实现了对JVM运行时函数调用的追踪，并初步尝试对样例代码`mysql_sync_stress_demo`使用协程时进行了监测
-[mysql-demo-flameGraph](./flameGraph/fl0.html)
+[mysql-demo-flameGraph]([shuyuhu328.github.io/SchedulerBenchmark/flameGraph/fl0.html](https://shuyuhu328.github.io/SchedulerBenchmark/flameGraph/fl0.html))
