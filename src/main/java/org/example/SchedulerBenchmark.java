@@ -8,8 +8,8 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Fork(1)
-@Warmup(iterations = 5)
-@Measurement(iterations = 10)
+@Warmup(iterations = 3)
+@Measurement(iterations = 5)
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.SECONDS)
